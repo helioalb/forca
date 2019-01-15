@@ -6,6 +6,8 @@ Quando /^começo um novo jogo$/ do
   }
 end
 
-Então /^vejo na tela:$/ do |string|
-  pending
+Então /^vejo na tela:$/ do |text|
+  steps %{
+    * the stdout should contain "#{text}"
+  }
 end
