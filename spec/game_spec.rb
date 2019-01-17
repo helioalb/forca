@@ -23,6 +23,15 @@ describe Game do
 
         game.next_step
       end
+
+      it 'finishes the game when the player asks to' do
+        player_input = 'fim'
+        allow(ui).to receive(:read).and_return(player_input)
+
+        game.next_step
+
+        expect(game).to be_ended
+      end
     end
   end
 
