@@ -1,5 +1,5 @@
 class Game
-  def initialize(ui)
+  def initialize(ui = CliUi.new)
     @ui = ui
     @ended = false
   end
