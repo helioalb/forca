@@ -4,7 +4,7 @@ require 'game'
 require 'spec_helper'
 
 describe Game do
-  let(:ui) { double('ui') }
+  let(:ui) { double('ui').as_null_object }
   subject(:game) { Game.new(ui) }
 
   describe '#ended?' do
