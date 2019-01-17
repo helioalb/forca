@@ -4,9 +4,10 @@ require 'game'
 require 'spec_helper'
 
 describe Game do
+  let(:input) { double('input') }
   let(:output) { double('output') }
 
-  subject(:game) { Game.new(output) }
+  subject(:game) { Game.new(input, output) }
 
   describe '#ended?' do
     it 'returns false when the game just started' do
@@ -20,6 +21,7 @@ describe Game do
         question = 'Qual o tamanho da palavra a ser sorteada?'
 
         expect(output).to receive(:puts).with(question)
+        expect(input).to receive(:gets)
 
         game.next_step
       end
