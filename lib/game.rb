@@ -1,3 +1,7 @@
+# encoding: UTF-8
+
+require_relative 'cli_ui'
+
 class Game
   def initialize(ui = CliUi.new)
     @ui = ui
