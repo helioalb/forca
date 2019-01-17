@@ -14,6 +14,18 @@ describe Game do
     end
   end
 
+  describe '#next_step' do
+    context 'when the game just started' do
+      it 'asks the player for the length of the word to be raffled' do
+        question = 'Qual o tamanho da palavra a ser sorteada?'
+
+        expect(output).to receive(:puts).with(question)
+
+        game.next_step
+      end
+    end
+  end
+
   describe '#start' do
     it 'prints the initial message' do
       initial_message = 'Bem-vindo ao jogo da forca!'

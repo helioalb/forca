@@ -8,6 +8,10 @@ class Game
     @ended
   end
 
+  def next_step
+    @output.puts('Qual o tamanho da palavra a ser sorteada?')
+  end
+
   def start
     initial_message = 'Bem-vindo ao jogo da forca!'
     @output.puts initial_message
