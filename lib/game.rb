@@ -1,7 +1,6 @@
 class Game
-  def initialize(input= STDIN, output = STDOUT)
-    @input = input
-    @output = output
+  def initialize(ui)
+    @ui = ui
     @ended = false
   end
 
@@ -10,12 +9,12 @@ class Game
   end
 
   def next_step
-    @output.puts('Qual o tamanho da palavra a ser sorteada?')
-    word_length = @input.gets
+    @ui.write('Qual o tamanho da palavra a ser sorteada?')
+    word_length = @ui.read
   end
 
   def start
     initial_message = 'Bem-vindo ao jogo da forca!'
-    @output.puts initial_message
+    @ui.write(initial_message)
   end
 end

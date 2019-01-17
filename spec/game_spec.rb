@@ -4,10 +4,8 @@ require 'game'
 require 'spec_helper'
 
 describe Game do
-  let(:input) { double('input') }
-  let(:output) { double('output') }
-
-  subject(:game) { Game.new(input, output) }
+  let(:ui) { double('ui') }
+  subject(:game) { Game.new(ui) }
 
   describe '#ended?' do
     it 'returns false when the game just started' do
@@ -20,8 +18,8 @@ describe Game do
       it 'asks the player for the length of the word to be raffled' do
         question = 'Qual o tamanho da palavra a ser sorteada?'
 
-        expect(output).to receive(:puts).with(question)
-        expect(input).to receive(:gets)
+        expect(ui).to receive(:write).with(question)
+        expect(ui).to receive(:read)
 
         game.next_step
       end
@@ -32,7 +30,7 @@ describe Game do
     it 'prints the initial message' do
       initial_message = 'Bem-vindo ao jogo da forca!'
 
-      expect(output).to receive(:puts).with(initial_message)
+      expect(ui).to receive(:write).with(initial_message)
 
       game.start
     end
