@@ -3,6 +3,8 @@
 require_relative 'cli_ui'
 
 class Game
+  attr_accessor :raffled_word
+
   def initialize(ui = CliUi.new)
     @ui = ui
     @ended = false
@@ -18,6 +20,11 @@ class Game
 
     if player_input == 'fim'
       @ended = true
+    else
+      word_length = player_input.to_i
+      words = %w(hi mom game fruit)
+
+      @raffled_word = words.detect { |word| word.length == word_length }
     end
   end
 

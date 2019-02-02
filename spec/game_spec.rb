@@ -14,6 +14,21 @@ describe Game do
   end
 
   describe '#next_step' do
+    context 'when the player asks to raffle a word' do
+      it 'raffles a word with the given length' do
+        word_length = '3'
+        allow(ui).to receive(:read).and_return(word_length)
+
+        game.next_step
+
+        expect(game.raffled_word).to have(word_length).letters
+      end
+
+      it 'prints a "_" for each letter in the raffled word' do
+
+      end
+    end
+
     context 'when the game just started' do
       it 'asks the player for the length of the word to be raffled' do
         question = 'Qual o tamanho da palavra a ser sorteada?'
