@@ -22,8 +22,8 @@ Funcionalidade: Começar jogo
     sorteada tem.
 
     Dado que comecei um jogo
-    E termino o jogo
     Quando escolho que a palavra a ser sorteada deverá ter "4" letras
+    E termino o jogo
     Então o jogo termina com a seguinte mensagem na tela:
        """
        _ _ _ _
