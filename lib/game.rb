@@ -21,8 +21,14 @@ class Game
     if player_input == 'fim'
       @ended = true
     else
-      raffle_word(player_input.to_i)
-      print_letters_feedback
+      if raffle_word(player_input.to_i)
+        print_letters_feedback
+      else
+        error_message = "Não temos uma palavra com o tamanho desejado,\n" <<
+        "é necessário escolher outro tamanho."
+
+        @ui.write(error_message)
+      end
     end
   end
 
