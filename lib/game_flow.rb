@@ -3,7 +3,12 @@
 require_relative 'cli_ui'
 require_relative 'game'
 
+require 'forwardable'
+
 class GameFlow
+  extend Forwardable
+  delegate ended?: :@game
+
   def initialize(game = Game.new, ui = CliUi.new)
     @game = game
     @ui = ui
