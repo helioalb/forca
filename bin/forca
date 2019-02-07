@@ -20,7 +20,7 @@ def create_word_raffler
 end
 
 game = create_game
-game_flow = GameFlow.new
+game_flow = GameFlow.new(game)
 
 game_flow.start
 
