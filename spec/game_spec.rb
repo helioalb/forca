@@ -7,6 +7,10 @@ describe Game do
   let(:word_raffler) { double('word_raffler').as_null_object }
   subject(:game) { Game.new(word_raffler) }
 
+  context 'when just created' do
+    its(:state) { should == :initial }
+  end
+
   describe '#raffle' do
     it 'raffles a word with the given length' do
       expect(word_raffler).to receive(:raffle).with(3)
@@ -21,6 +25,20 @@ describe Game do
       game.raffle(3)
 
       expect(game.raffled_word).to eq(raffled_word)
+    end
+
+    it 'makes a transition from :initial to :word_raffled on success' do
+      expect do
+        game.raffle(3)
+      end.to change { game.state }.from(:initial).to(:word_raffled)
+    end
+
+    it 'stays on the :initial state when a word can not be raffled' do
+      allow(word_raffler).to receive(:raffle).and_return(nil)
+
+      game.raffle(3)
+
+      expect(game.state).to eq(:initial)
     end
   end
 

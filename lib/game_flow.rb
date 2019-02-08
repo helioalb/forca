@@ -20,6 +20,24 @@ class GameFlow
   end
 
   def next_step
+    case @game.state
+    when :initial
+      ask_to_raffle_a_word
+    when :word_raffled
+      ask_to_guess_a_letter
+    end
+  end
+
+  private
+
+  def ask_to_guess_a_letter
+    letter = @ui.read.strip
+    return unless @game.gess_letter(letter)
+
+    @ui.write('Você adivinhou uma letra com sucesso.')
+  end
+
+  def ask_to_raffle_a_word
     @ui.write('Qual o tamanho da palavra a ser sorteada?')
     player_input = @ui.read.strip
 
@@ -37,7 +55,6 @@ class GameFlow
     end
   end
 
-  private
   def print_letters_feedback
     letters_feedback = ''
 

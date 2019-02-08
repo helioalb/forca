@@ -5,22 +5,25 @@ require_relative 'word_raffler'
 
 class Game
   attr_accessor :raffled_word
+  attr_accessor :state
 
   def initialize(word_raffler = WordRaffler.new)
     @word_raffler = word_raffler
-    @ended = false
+    @state = :initial
   end
 
   def ended?
-    @ended
+    @state == :ended
   end
 
   def finish
-    @ended = true
+    @state = :ended
   end
 
   def raffle(word_length)
     @raffled_word = @word_raffler.raffle(word_length)
+    @state = :word_raffled if @raffled_word
+    @raffled_word
   end
 
   def start
