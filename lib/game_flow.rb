@@ -36,6 +36,7 @@ class GameFlow
     return unless @game.gess_letter(letter)
 
     @ui.write('Você adivinhou uma letra com sucesso.')
+    @ui.write(guessed_letters)
   end
 
   def ask_to_raffle_a_word
@@ -46,7 +47,7 @@ class GameFlow
       @game.finish
     else
       if @game.raffle(player_input.to_i)
-        print_letters_feedback
+        @ui.write(guessed_letters)
       else
         error_message = "Não temos uma palavra com o tamanho desejado,\n" <<
         "é necessário escolher outro tamanho."
@@ -56,14 +57,13 @@ class GameFlow
     end
   end
 
-  def print_letters_feedback
-    letters_feedback = ''
+  def guessed_letters
+    letters = ''
 
-    @game.raffled_word.length.times do
-      letters_feedback << '_ '
+    @game.raffled_word.each_char do |letter|
+      letters << (@game.guessed_letters.include?(letter) ? "#{letter} " : '_ ')
     end
 
-    letters_feedback.strip!
-    @ui.write(letters_feedback)
+    letters.strip!
   end
 end
