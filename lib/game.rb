@@ -20,6 +20,12 @@ class Game
     @state = :ended
   end
 
+  def guess_letter(letter)
+    return false if letter.strip == ''
+
+    @raffled_word.include?(letter)
+  end
+
   def raffle(word_length)
     @raffled_word = @word_raffler.raffle(word_length)
     @state = :word_raffled if @raffled_word

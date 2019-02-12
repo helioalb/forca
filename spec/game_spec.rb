@@ -1,5 +1,3 @@
-# encoding: UTF-8
-
 require 'spec_helper'
 require 'game'
 
@@ -9,6 +7,27 @@ describe Game do
 
   context 'when just created' do
     its(:state) { should == :initial }
+  end
+
+  describe '#guess_letter' do
+    it 'returns true if the raffled word contains the given letter' do
+      game.raffled_word = 'hey'
+
+      expect(game.guess_letter('h')).to be_truthy
+    end
+
+    it "returns false if raffled word does'n t contain the given letter" do
+      game.raffled_word = 'hey'
+
+      expect(game.guess_letter('z')).to be_falsey
+    end
+
+    it 'returns false if the given letter is a blank string' do
+      game.raffled_word = 'hey'
+
+      expect(game.guess_letter('')).to be_falsey
+      expect(game.guess_letter(' ')).to be_falsey
+    end
   end
 
   describe '#raffle' do
