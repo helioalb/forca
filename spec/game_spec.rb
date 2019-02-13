@@ -28,6 +28,37 @@ describe Game do
       expect(game.guess_letter('')).to be_falsey
       expect(game.guess_letter(' ')).to be_falsey
     end
+
+    it 'saves the guessed letter when the guess is right' do
+      game.raffled_word = 'hey'
+
+      expect do
+        game.guess_letter('h')
+      end.to change { game.guessed_letters }.from([]).to(['h'])
+    end
+
+    it 'does not save a guessed letter more than once' do
+      game.raffled_word = 'hey'
+      game.guess_letter('h')
+
+      expect do
+        game.guess_letter('h')
+      end.to_not change { game.guessed_letters }.from(['h'])
+    end
+  end
+
+  describe '#guessed_letters' do
+    it 'returns the guessed letters' do
+      game.raffled_word = 'hey'
+
+      game.guess_letter('e')
+
+      expect(game.guessed_letters).to eq ['e']
+    end
+
+    it "returns an empty array when there's no guessed letters" do
+      expect(game.guessed_letters).to eq []
+    end
   end
 
   describe '#raffle' do

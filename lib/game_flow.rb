@@ -30,23 +30,29 @@ class GameFlow
 
   private
 
-  def ask_to_guess_a_letter
-    @ui.write('Qual letra você acha que a palavra tem?')
-    letter = @ui.read.strip
-    return unless @game.gess_letter(letter)
-
-    @ui.write('Você adivinhou uma letra com sucesso.')
-    @ui.write(guessed_letters)
-  end
-
-  def ask_to_raffle_a_word
-    @ui.write('Qual o tamanho da palavra a ser sorteada?')
+  def ask_the_player(question)
+    @ui.write(question)
     player_input = @ui.read.strip
 
     if player_input == 'fim'
       @game.finish
     else
-      if @game.raffle(player_input.to_i)
+      yield player_input.strip
+    end
+  end
+
+  def ask_to_guess_a_letter
+    ask_the_player('Qual letra você acha que a palavra tem?') do |letter|
+      return unless @game.guess_letter(letter)
+
+      @ui.write('Você adivinhou uma letra com sucesso.')
+      @ui.write(guessed_letters)
+    end
+  end
+
+  def ask_to_raffle_a_word
+    ask_the_player('Qual o tamanho da palavra a ser sorteada?') do |length|
+      if @game.raffle(length.to_i)
         @ui.write(guessed_letters)
       else
         error_message = "Não temos uma palavra com o tamanho desejado,\n" <<
