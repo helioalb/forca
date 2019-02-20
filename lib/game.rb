@@ -4,14 +4,22 @@ require_relative 'cli_ui'
 require_relative 'word_raffler'
 
 class Game
+  HANGMAN_PARTS = [
+    'cabeça', 'corpo', 'braço esquerdo',
+    'braço direito', 'perna esquerda', 'perna direita'
+  ].freeze
+
   attr_accessor :raffled_word
   attr_accessor :state
   attr_reader :guessed_letters
+  attr_reader :missed_parts
 
   def initialize(word_raffler = WordRaffler.new)
     @word_raffler = word_raffler
     @state = :initial
     @guessed_letters = []
+    @missed_parts = []
+    @wrong_guesses = 0
   end
 
   def ended?
@@ -29,9 +37,11 @@ class Game
       @guessed_letters << letter
       @guessed_letters.uniq!
       return true
+    else
+      @missed_parts << HANGMAN_PARTS[@wrong_guesses]
+      @wrong_guesses += 1
+      false
     end
-
-    false
   end
 
   def raffle(word_length)
