@@ -50,6 +50,15 @@ Funcionalidade: Adivinhar letra
     Quanto mais o jogador for acertando, mais o jogo vai mostrando pra
     ele as letras que ele adivinhou.
 
+    Dado que comecei um jogo
+    E que escolhi que a palavra a ser sorteada deverá ter "3" letras
+    Quando tento adivinhar que a palavra tem a letra "a"
+    E tento adivinhar que a palavra tem a letra "v"
+    E termino o jogo
+    Então o jogo termina com a seguinte mensagem na tela:
+      """
+      a v _
+      """
   Cenário: Jogador erra três vezes ao adivinhar letra
     Quanto mais o jogador for errando, mais partes do boneco da forca
     são perdidas.
