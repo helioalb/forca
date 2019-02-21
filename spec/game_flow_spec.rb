@@ -147,6 +147,14 @@ describe GameFlow do
 
         game_flow.next_step
       end
+
+      it 'prints a defeat message when the player lose' do
+        allow(game).to receive(:player_won?).and_return(false)
+
+        expect(ui).to receive(:write).with('Você perdeu. :(')
+
+        game_flow.next_step
+      end
     end
   end
 end

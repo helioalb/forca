@@ -13,6 +13,12 @@ Quando /^tento adivinhar que a palavra tem a letra "(.*?)"$/ do |letter|
   type(letter)
 end
 
+Quando /^tento adivinhar que a palavra tem a letra "(.*?)" "(.*?) vezes$/ do |letter, number_of_guesses|
+  number_of_guesses.to_i.times do
+    type(letter)
+  end
+end
+
 Então /^o jogo mostra que eu adivinhei uma letra com sucesso$/ do
   assert_partial_output('Você adivinhou uma letra com sucesso.', all_stdout)
 end

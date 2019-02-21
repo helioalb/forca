@@ -43,6 +43,9 @@ class Game
     else
       @missed_parts << HANGMAN_PARTS[@wrong_guesses]
       @wrong_guesses += 1
+
+      @state = :ended if @wrong_guesses == 6
+
       false
     end
   end
