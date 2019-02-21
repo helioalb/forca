@@ -26,6 +26,8 @@ class GameFlow
     when :word_raffled
       ask_to_guess_a_letter
     end
+
+    print_game_final_result if @game.ended?
   end
 
   private
@@ -65,6 +67,12 @@ class GameFlow
 
         @ui.write(error_message)
       end
+    end
+  end
+
+  def print_game_final_result
+    if @game.player_won?
+      @ui.write('Você venceu! :)')
     end
   end
 

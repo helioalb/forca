@@ -36,12 +36,21 @@ class Game
     if @raffled_word.include?(letter)
       @guessed_letters << letter
       @guessed_letters.uniq!
+
+      @state = :ended if all_letters_were_guessed?
+
       return true
     else
       @missed_parts << HANGMAN_PARTS[@wrong_guesses]
       @wrong_guesses += 1
       false
     end
+  end
+
+  def player_won?
+    return false if @state != :ended
+
+    all_letters_were_guessed?
   end
 
   def raffle(word_length)
@@ -53,5 +62,13 @@ class Game
   def start
     initial_message = 'Bem-vindo ao jogo da forca!'
     @ui.write(initial_message)
+  end
+
+  private
+
+  def all_letters_were_guessed?
+    raffled_word_letters = @raffled_word.to_s.chars.to_a.uniq.sort
+
+    @guessed_letters.sort == raffled_word_letters
   end
 end

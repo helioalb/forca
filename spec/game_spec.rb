@@ -56,6 +56,16 @@ describe Game do
   end
 
   describe '#guessed_letters' do
+    it 'makes a transition to the "ended" state when all letters are guessed with success' do
+      game.state = :word_raffler
+      game.raffled_word = 'hi'
+
+      expect do
+        game.guess_letter('h')
+        game.guess_letter('i')
+      end.to change { game.state }.from(:word_raffler).to(:ended)
+    end
+
     it 'returns the guessed letters' do
       game.raffled_word = 'hey'
 
@@ -66,6 +76,35 @@ describe Game do
 
     it "returns an empty array when there's no guessed letters" do
       expect(game.guessed_letters).to eq []
+    end
+  end
+
+  describe '#player_won?' do
+    it "returns false when the player didn't guessed all letters" do
+      game.state = :word_raffled
+      game.raffled_word = 'hi'
+
+      6.times { game.guess_letter('z') }
+
+      expect(game.player_won?).to be_falsey
+    end
+
+    it 'returns true when the player guessed all letters with success' do
+      game.state = :word_raffled
+      game.raffled_word = 'hi'
+
+      game.guess_letter('h')
+      game.guess_letter('i')
+
+      expect(game.player_won?).to be_truthy
+    end
+
+    it 'returns false when the game is not in the "ended" state' do
+      game.state = :initial
+      expect(game.player_won?).to be_falsey
+
+      game.state = :word_raffled
+      expect(game.player_won?).to be_falsey
     end
   end
 
